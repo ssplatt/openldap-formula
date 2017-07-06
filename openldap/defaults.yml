@@ -1,0 +1,14 @@
+# vim: ft=yaml
+# Defaults for openldap
+
+openldap:
+  enabled: false
+  pkg: slapd
+  extras_install: false
+  extra_pkgs:
+    - ldap-utils
+    - ldapscripts
+  service:
+    name: slapd
+    state: dead
+    enable: false

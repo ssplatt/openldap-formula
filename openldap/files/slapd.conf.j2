@@ -1,0 +1,19 @@
+database mdb
+maxsize 1073741824
+suffix dc=Example,dc=com
+rootdn dc=Example,dc=com
+directory /var/ldap/db
+index objectclass,entryCSN,entryUUID eq
+
+overlay syncprov
+syncprov-checkpoint 100 10
+syncprov-sessionlog 100
+
+# TLS certificates (needed for GnuTLS)
+TLSCACertificateFile	/etc/ssl/certs/ca-certificates.crt
+{% if conf.tls -%}
+TLSCertificateFile {{ conf.tlscertdir }}/{{ conf.tlscertfile }}
+TLSCertificateKeyFile {{ conf.tlskeydir }}/{{ conf.tlskeyfile }}
+TLSCipherSuite {{ conf.tlscipersuite }}
+TLSVerifyClient {{ conf.tlsverifyclient }}
+{%- endif %}
